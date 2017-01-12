@@ -1,0 +1,29 @@
+#!/usr/bin/python
+
+import os
+import sys
+import glob
+
+BASE_DIR="/usr/lib/systemd/system"
+
+with open("/tmp/genlog", "a") as fp:
+    fp.write("ran genlog")
+
+if len(sys.argv) != 4:
+   print >> sys.stderr, "Usage: %s <normal-dir> <early-dir> <late-dir>" % sys.argv[0]
+   sys.exit(1)
+
+normal_dir = sys.argv[1]
+
+requires_dir = os.path.join(normal_dir, "cvmfs-snapshot.service.requires")
+os.mkdir(requires_dir)
+
+for dirname in glob.glob("/etc/cvmfs/repositories.d/*"):
+    replica_conf = os.path.join(dirname, "replica.conf")
+    if not os.path.exists(replica_conf):
+        continue
+    repo_name = os.path.split(dirname)[-1]
+
+    os.symlink(os.path.join(BASE_DIR, "cvmfs-snapshot@.service"), os.path.join(requires_dir, "cvmfs-snapshot@%s.service" % repo_name))
+    os.symlink(os.path.join(BASE_DIR, "cvmfs-snapshot@.timer"),   os.path.join(requires_dir, "cvmfs-snapshot@%s.timer"   % repo_name))
+

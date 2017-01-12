@@ -1,0 +1,22 @@
+
+[Unit]
+Description=CVMFS Stratum-1 snapshot of %I
+Documentation=https://github.com/opensciencegrid/oasis-server
+Requires=network-online.target
+After=network-online.target
+PartOf=cvmfs-snapshot.service
+RequiresMountsFor=/srv/cvmfs
+
+[Service]
+User=root
+Nice=19
+LimitNOFILE=65536
+
+ExecStart=/usr/bin/cvmfs_server snapshot -t %i
+
+Type=simple
+
+
+[Install]
+WantedBy=multi-user.target
+

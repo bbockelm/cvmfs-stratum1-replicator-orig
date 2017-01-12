@@ -1,0 +1,10 @@
+
+[Unit]
+Description=Kickoff the periodic CVMFS Stratum-1 snapshots.
+
+[Timer]
+RandomizedDelaySec=2s
+AccuracySec=1s
+OnUnitInactiveSec=20s
+OnBootSec=1min
+

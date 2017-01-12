@@ -1,0 +1,17 @@
+
+# Note - this unit does nothing but coordinates with the units
+# representing the individual repository replication attempts.
+
+# You can start/stop all the ongoing snapshots by toggling this
+# service's status.
+
+[Unit]
+Description=CVMFS Stratum-1 Snapshot service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+StandardOutput=journal
+
+ExecStart=/usr/bin/echo "Starting CVMFS Stratum-1 Snapshot service."
+
