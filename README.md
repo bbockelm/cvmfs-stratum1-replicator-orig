@@ -23,3 +23,21 @@ The second line will enable one unit per repo.  To stop snapshots, disable the t
 systemctl stop cvmfs-snapshot
 ```
 
+Overriding Defaults
+-------------------
+
+By default, we check for updates every 20s; this is relatively aggressive.  To adjust the defaults,
+create a file `/etc/systemd/system/cvmfs-snapshot@.timer.d/10-increase-timer.conf` with the following contents:
+
+```
+[Timer]
+OnUnitInactiveSec=30s
+```
+
+Reload systemd and restart the services:
+
+```
+systemctl daemon-reload
+systemctl restart cvmfs-snapshot
+```
+
