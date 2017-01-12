@@ -4,7 +4,7 @@ Release:	1%{?dist}
 Summary:	Snapshot services for the CVMFS Stratum-1
 
 Group:		Applications/System
-License:	BSD
+License:	Apache 2.0
 URL:		https://github.com/bbockelm/cvmfs-stratum1-replicator
 
 # To generate tarball:
